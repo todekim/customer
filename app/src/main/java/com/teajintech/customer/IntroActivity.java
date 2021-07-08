@@ -2,6 +2,7 @@ package com.teajintech.customer;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ public class IntroActivity extends AppCompatActivity {
         introThread.start();
     }
 
-    Handler handler = new Handler() {
+    Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
@@ -27,4 +28,8 @@ public class IntroActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBackPressed(){
+        //
+    }
 }

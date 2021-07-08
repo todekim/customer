@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
         Resources res = getResources();
         String homeUrl = res.getString(R.string.homeUrl);
 
@@ -68,5 +70,14 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setDomStorageEnabled(true);
         webview.loadUrl(homeUrl);
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(webview.canGoBack()){
+            webview.goBack();
+        }else{
+            //
+        }
     }
 }
