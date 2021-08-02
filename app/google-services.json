@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "301989631537",
+    "project_id": "taejintech-customer",
+    "storage_bucket": "taejintech-customer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301989631537:android:e4a21d67898a20a5cfa710",
+        "android_client_info": {
+          "package_name": "com.teajintech.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301989631537-5hatso0g03viocc5jrenfdg9bo5r57ic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teajintech.customer",
+            "certificate_hash": "f47cddc4909e245dcf231da44d02854f1312e9fc"
+          }
+        },
+        {
+          "client_id": "301989631537-f21v6c872dta3t3jf601583agncv171a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm7AL5TM_bua52I8OKsXbYvARK_HoLcdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301989631537-f21v6c872dta3t3jf601583agncv171a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

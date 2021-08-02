@@ -73,11 +73,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-        if(webview.canGoBack()){
-            webview.goBack();
-        }else{
-            //
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (webview.canGoBack()) { // 뒤로가기 눌렀을 때, 뒤로 갈 곳이 있을 경우
+            webview.goBack(); // 뒤로가기
+        } else {//뒤로 갈 곳이 없는 경우
+            new AlertDialog.Builder(MainActivity.this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("종료!")
+                    .setMessage("종료하시겠습니까?")
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("아니오", null)
+                    .show();
         }
     }
 }
