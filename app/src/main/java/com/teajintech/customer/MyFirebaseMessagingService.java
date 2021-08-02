@@ -21,7 +21,7 @@ import com.google.firebase.messaging.RemoteMessage;
  *
  * In order to make this Java sample functional, you must remove the following from the Kotlin messaging
  * service in the AndroidManifest.xml:
- *
+ * test
  * <intent-filter>
  *   <action android:name="com.google.firebase.MESSAGING_EVENT" />
  * </intent-filter>
