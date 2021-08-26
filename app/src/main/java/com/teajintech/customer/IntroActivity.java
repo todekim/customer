@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -22,10 +22,9 @@ import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.play.core.tasks.Task;
 
 public class IntroActivity extends AppCompatActivity {
-    private static final int MY_REQUEST_CODE=100;
+    private static final int MY_REQUEST_CODE = 100;
     private final String TAG = "intro_activity";
     private AppUpdateManager appUpdateManager;
 
@@ -44,7 +43,7 @@ public class IntroActivity extends AppCompatActivity {
                     // This example applies an immediate update. To apply a flexible update
                     // instead, pass in AppUpdateType.FLEXIBLE
                     && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                try{
+                try {
                     appUpdateManager.startUpdateFlowForResult(
                             // Pass the intent that is returned by 'getAppUpdateInfo()'.
                             appUpdateInfo,
@@ -54,8 +53,8 @@ public class IntroActivity extends AppCompatActivity {
                             this,
                             // Include a request code to later monitor this update request.
                             MY_REQUEST_CODE);
-                    Log.d(TAG,"update now");
-                }catch(IntentSender.SendIntentException e){
+                    Log.d(TAG, "update now");
+                } catch (IntentSender.SendIntentException e) {
                     e.printStackTrace();
                 }
             }
@@ -63,6 +62,7 @@ public class IntroActivity extends AppCompatActivity {
         appUpdateManager.registerListener(installStateUpdatedListener);
 
         init_intro();
+        init_firebase();
     }
 
     private InstallStateUpdatedListener installStateUpdatedListener = new InstallStateUpdatedListener() {
@@ -88,26 +88,53 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     //인트로 시작
-    private void init_intro(){
+    private void init_intro() {
         IntroThread introThread = new IntroThread(handler);
         introThread.start();
     }
 
+    private void init_firebase() {
+        //
+    }
+
     @Override
     protected void onStop() {
-        if(appUpdateManager!=null) appUpdateManager.unregisterListener(installStateUpdatedListener);
+        if (appUpdateManager != null) appUpdateManager.unregisterListener(installStateUpdatedListener);
         super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+                            if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                                try {
+                                    appUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            AppUpdateType.IMMEDIATE,
+                                            this,
+                                            MY_REQUEST_CODE
+                                    );
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == MY_REQUEST_CODE && requestCode != RESULT_OK) {
-            Toast.makeText(this,"cancle",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "cancle", Toast.LENGTH_LONG).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override public void onBackPressed() {
+    @Override
+    public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("종료!")

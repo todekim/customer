@@ -2,5 +2,15 @@
     <string name="app_name">태진테크</string>
     <string name="homeUrl">http://ctrl.taejintech.co.kr</string>
     <string name="default_notification_channel_id">taejintech</string>
+    <string name="msg_subscribed">Subscribed to weather topic</string>
+    <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <!-- [START fcm_default_icon_string] -->
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+    <!-- [END fcm_default_icon_string] -->
+    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">taejintech</string>
 </resources>
