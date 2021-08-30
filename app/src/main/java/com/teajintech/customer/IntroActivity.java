@@ -35,6 +35,7 @@ public class IntroActivity extends AppCompatActivity {
         appUpdateManager = AppUpdateManagerFactory.create(this);
         com.google.android.play.core.tasks.Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
         appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            Log.d(TAG, appUpdateInfo.toString());
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 try {
                     appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.FLEXIBLE, this, MY_REQUEST_CODE);
